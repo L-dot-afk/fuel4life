@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fuel4Life</title>
+<meta name="description" content="Straight answers about food, bodies and energy, for teenagers. Myths corrected, recipes, a daily puzzle, and anonymous stories.">
+<meta name="theme-color" content="#F4F3ED">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Fuel4Life">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2314342B'/%3E%3Cpath d='M9 23V9h11v3.4h-7.2v2.9H19v3.3h-6.2V23z' fill='%23B4EBCA'/%3E%3C/svg%3E">
+<style>
+:root{
+  --paper:#F4F3ED;
+  --card:#FFFFFF;
+  --ink:#14342B;
+  --ink-70:rgba(20,52,43,.70);
+  --ink-45:rgba(20,52,43,.45);
+  --ink-12:rgba(20,52,43,.12);
+  --ink-06:rgba(20,52,43,.06);
+  --mint:#B4EBCA;
+  --blue:#BCF4F5;
+  --lime:#D9F2B4;
+  --pink:#FFB7C3;
+  --alarm:#A63D57;
+
+  --display:'Bricolage Grotesque','Trebuchet MS',system-ui,sans-serif;
+  --body:'Karla','Segoe UI',system-ui,-apple-system,sans-serif;
+
+  --app:520px;
+  --bar:calc(60px + env(safe-area-inset-bottom));
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{-webkit-text-size-adjust:100%; background:#E7E6DE}
+body{
+  font-family:var(--body); font-size:17px; line-height:1.55;
+  color:var(--ink); -webkit-font-smoothing:antialiased;
+  display:flex; justify-content:center;
+}
+h1,h2,h3{font-family:var(--display); font-weight:800; line-height:1.15; margin:0; letter-spacing:-.02em}
+h1{font-size:27px}
+h2{font-size:20px; font-weight:800}
+h3{font-size:17px; font-weight:600; letter-spacing:-.01em}
+p{margin:0 0 .9em}
+button{font:inherit; color:inherit; cursor:pointer}
+:focus-visible{outline:3px solid var(--ink); outline-offset:2px; border-radius:6px}
+::selection{background:var(--mint)}
+
+/* ---------- the phone-shaped column ---------- */
+.app{
+  width:100%; max-width:var(--app); background:var(--paper);
+  height:100vh; height:100dvh; position:relative;
+  display:flex; flex-direction:column;
+  border-left:1px solid var(--ink-12); border-right:1px solid var(--ink-12);
+}
+@media (max-width:540px){ .app{border:0} }
+
+.top{
+  flex:none;
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding:10px 16px calc(10px + env(safe-area-inset-top));
+  background:var(--paper); border-bottom:1px solid var(--ink-12);
+}
+.brand{display:flex; align-items:center; gap:8px; background:none; border:0; padding:4px 2px}
+.mark{
+  width:28px;height:28px;border-radius:9px;background:var(--ink);color:var(--mint);
+  font-family:var(--display);font-weight:800;display:grid;place-items:center;font-size:16px;flex:none;
+}
+.brand span:last-child{font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:-.02em}
+.talk{
+  background:var(--card); border:1px solid var(--ink-12); border-radius:999px;
+  padding:8px 13px; font-size:13.5px; font-weight:700; white-space:nowrap;
+  min-height:38px; display:flex; align-items:center; gap:7px;
+}
+.talk::before{content:''; width:8px; height:8px; border-radius:50%; background:var(--pink); flex:none}
+
+.screen{flex:1; min-height:0; overflow-y:auto; -webkit-overflow-scrolling:touch; padding:18px 16px 30px}
+.screen.ask{display:flex; flex-direction:column}
+.screen > section{margin-bottom:30px}
+.screen > section:last-child{margin-bottom:0}
+.lede{color:var(--ink-70); font-size:16px; margin:6px 0 0}
+
+/* ---------- bottom tabs ---------- */
+.tabs{
+  flex:none; display:flex; background:var(--paper); border-top:1px solid var(--ink-12);
+  padding:6px 4px calc(6px + env(safe-area-inset-bottom));
+}
+.tabs button{
+  flex:1; background:none; border:0; border-radius:12px;
+  min-height:48px; padding:5px 2px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;
+  font-size:11px; font-weight:700; color:var(--ink-45);
+}
+.tabs .ic{width:22px;height:22px;display:block;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.tabs button[aria-current="page"]{color:var(--ink)}
+.tabs button[aria-current="page"] .ic{stroke:var(--ink)}
+
+/* ---------- building blocks ---------- */
+.card{background:var(--card); border:1px solid var(--ink-12); border-radius:16px; padding:16px}
+
+.row{
+  display:flex; align-items:center; gap:12px; width:100%; text-align:left;
+  background:var(--card); border:1px solid var(--ink-12); border-radius:14px;
+  padding:14px 14px; margin-bottom:8px; min-height:56px;
+}
+.row:last-child{margin-bottom:0}
+.row .txt{flex:1; min-width:0}
+.row .t{display:block; font-family:var(--display); font-weight:600; font-size:16px; line-height:1.25}
+.row .s{display:block; font-size:13.5px; color:var(--ink-45); margin-top:3px}
+.row .chev{flex:none; color:var(--ink-45); font-size:19px; line-height:1}
+
+.btn{
+  background:var(--ink); color:var(--paper); border:0; border-radius:999px;
+  padding:12px 20px; font-weight:700; min-height:46px;
+}
+.btn.ghost{background:none; color:var(--ink); border:1px solid var(--ink-12)}
+.btn:disabled{opacity:.4}
+.back{background:none;border:0;padding:6px 0;color:var(--ink-70);font-weight:700;font-size:15px;margin-bottom:10px;min-height:38px}
+
+.quote{background:var(--lime); border-radius:16px; padding:18px}
+.quote p{font-family:var(--display); font-weight:600; font-size:19px; line-height:1.3; margin:0}
+.quote .lbl{font-size:12.5px; font-weight:700; color:var(--ink-45); margin:0 0 8px}
+
+/* the one loud thing on the whole app */
+.myth-hero{padding:8px 0 4px}
+.myth-hero .lbl{font-size:13px; color:var(--ink-45); margin:0 0 14px}
+.claim{
+  font-family:var(--display); font-weight:800; font-size:25px; line-height:1.2;
+  color:var(--ink-45); display:inline;
+  background:linear-gradient(var(--pink),var(--pink)) 0 60%/100% 5px no-repeat;
+  padding:0 2px;
+}
+.fix{margin:16px 0 0; font-size:16.5px}
+.myth-hero .btn{margin-top:16px}
+
+/* accordion */
+.acc{border:1px solid var(--ink-12); border-radius:14px; background:var(--card); margin-bottom:8px; overflow:hidden}
+.acc summary{
+  list-style:none; cursor:pointer; padding:14px; min-height:54px;
+  display:flex; align-items:center; gap:12px;
+  font-family:var(--display); font-weight:600; font-size:15.5px; line-height:1.3;
+}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary .plus{margin-left:auto; flex:none; color:var(--ink-45); font-size:20px; line-height:1}
+.acc[open] summary .plus{transform:rotate(45deg)}
+.acc[open] summary{background:var(--ink-06)}
+.acc .ans{padding:0 14px 15px; font-size:15.5px; color:var(--ink-70); margin:0}
+.acc[open] .ans{padding-top:13px}
+
+/* article */
+.short{background:var(--blue); border-radius:14px; padding:15px 16px; margin:16px 0 22px}
+.short p{font-size:12.5px; font-weight:700; color:var(--ink-70); margin:0 0 8px}
+.short ul{margin:0; padding-left:19px; font-size:15.5px}
+.short li{margin-bottom:6px}
+.short li:last-child{margin-bottom:0}
+.body h3{margin:26px 0 8px}
+.body ul{padding-left:19px; font-size:16px}
+.body li{margin-bottom:7px}
+.pull{
+  border-left:4px solid var(--mint); padding:2px 0 2px 15px; margin:22px 0;
+  font-family:var(--display); font-size:18px; font-weight:600; line-height:1.3;
+}
+.meta{color:var(--ink-45); font-size:13.5px; margin:6px 0 0}
+
+/* recipe */
+.ing{list-style:none; padding:0; margin:0}
+.ing li{padding:9px 0; border-bottom:1px solid var(--ink-06); font-size:16px}
+.steps{counter-reset:s; list-style:none; padding:0; margin:0}
+.steps li{counter-increment:s; position:relative; padding-left:36px; margin-bottom:14px; font-size:16px}
+.steps li::before{
+  content:counter(s); position:absolute; left:0; top:0;
+  width:25px;height:25px;border-radius:8px;background:var(--mint);
+  display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:13px;
+}
+
+/* quiz */
+.q{background:var(--card);border:1px solid var(--ink-12);border-radius:16px;padding:16px;margin-bottom:10px}
+.q .prompt{font-family:var(--display);font-weight:600;font-size:16.5px;line-height:1.3;margin-bottom:12px}
+.opt{
+  display:block;width:100%;text-align:left;background:var(--paper);
+  border:1px solid var(--ink-12);border-radius:11px;padding:12px 13px;margin-bottom:7px;
+  font-size:15.5px; min-height:46px;
+}
+.opt.right{background:var(--mint);border-color:var(--ink)}
+.opt.wrong{background:var(--pink);border-color:var(--alarm)}
+.explain{font-size:14.5px;color:var(--ink-70);margin:11px 0 0;padding-top:11px;border-top:1px solid var(--ink-06)}
+
+/* crossword */
+.cluebar{
+  display:flex; align-items:center; gap:10px; background:var(--mint);
+  border-radius:12px; padding:11px 13px; margin-bottom:12px; font-size:14.5px; min-height:48px;
+}
+.cluebar .n{font-family:var(--display);font-weight:800;flex:none}
+.cluebar button{background:rgba(255,255,255,.6);border:0;border-radius:8px;padding:6px 10px;font-size:12.5px;font-weight:700;margin-left:auto;flex:none;min-height:34px}
+.cw{display:grid; gap:2px; background:var(--ink-12); padding:2px; border-radius:6px; width:max-content; max-width:100%; margin:0 auto}
+.cw .cell{position:relative; width:var(--cell,30px); height:var(--cell,30px); background:var(--ink-12)}
+.cw .cell.open{background:var(--card)}
+.cw input{
+  width:100%;height:100%;border:0;background:none;text-align:center;padding:0;
+  font-family:var(--display);font-weight:600;font-size:calc(var(--cell,30px) * .52);
+  text-transform:uppercase;color:var(--ink);
+}
+.cw input:focus{background:var(--lime);outline:none}
+.cw .cell.here input{background:var(--blue)}
+.cw .cell.done input{background:var(--mint)}
+.cw .num{position:absolute;top:0;left:2px;font-size:8.5px;color:var(--ink-45);pointer-events:none;line-height:1.3}
+details.clues{margin-top:14px}
+details.clues summary{cursor:pointer;font-weight:700;font-size:15px;padding:10px 0;min-height:42px}
+details.clues ol{padding-left:22px;font-size:15px;margin:0 0 14px}
+details.clues li{margin-bottom:5px}
+details.clues h4{font-family:var(--display);font-size:14px;margin:8px 0 6px}
+
+/* voices */
+.voice{background:var(--card);border:1px solid var(--ink-12);border-radius:16px;padding:16px;margin-bottom:10px}
+.voice p.said{margin:0;font-size:16px}
+.voice .who{font-size:13px;color:var(--ink-45);margin:11px 0 0}
+textarea,input[type=text]{
+  width:100%;font:inherit;font-size:16px;padding:12px 13px;border-radius:12px;
+  border:1px solid var(--ink-12);background:var(--card);color:var(--ink);
+}
+textarea{min-height:110px;resize:vertical}
+label{display:block;font-weight:700;font-size:14px;margin:0 0 6px}
+.field{margin-bottom:14px}
+
+/* chat */
+.chat{display:flex;flex-direction:column;flex:1;min-height:260px;background:var(--card);border:1px solid var(--ink-12);border-radius:16px;overflow:hidden}
+.log{flex:1;min-height:0;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:85%;padding:11px 14px;border-radius:15px;font-size:15.5px;line-height:1.45;white-space:pre-wrap}
+.msg.bot{background:var(--ink-06);border-bottom-left-radius:5px;align-self:flex-start}
+.msg.me{background:var(--blue);border-bottom-right-radius:5px;align-self:flex-end}
+.suggest{display:flex;gap:7px;overflow-x:auto;padding:0 12px 10px;scrollbar-width:none}
+.suggest::-webkit-scrollbar{display:none}
+.suggest button{background:var(--paper);border:1px solid var(--ink-12);border-radius:999px;padding:8px 13px;font-size:13.5px;white-space:nowrap;min-height:38px}
+.composer{display:flex;gap:8px;padding:10px;border-top:1px solid var(--ink-12)}
+.composer input{flex:1}
+.composer .btn{padding:12px 16px}
+
+/* help sheet */
+.line{background:var(--card);border:1px solid var(--ink-12);border-radius:14px;padding:15px;margin-bottom:10px}
+.line .nm{font-family:var(--display);font-weight:600;font-size:16.5px}
+.line .num{font-family:var(--display);font-weight:800;font-size:23px;margin:6px 0 5px;display:inline-block;
+  color:var(--ink);text-decoration:none;border-bottom:2px solid var(--mint)}
+.line .det{font-size:14.5px;color:var(--ink-70);margin:0}
+.note{background:var(--ink-06);border-radius:14px;padding:15px;font-size:14.5px;color:var(--ink-70)}
+.note p{margin:0}
+.note strong{color:var(--ink)}
+
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:16px;top:16px;z-index:99;background:var(--ink);color:var(--paper);padding:10px 14px;border-radius:10px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <button class="brand" onclick="go('home')" aria-label="Fuel4Life home">
+      <span class="mark">F</span><span>Fuel4Life</span>
+    </button>
+    <button class="talk" onclick="go('talk')">Talk to someone</button>
+  </header>
+
+  <main id="main" class="screen"></main>
+  <nav class="tabs" id="tabs" aria-label="Sections"></nav>
+</div>
+
+<script>
+"use strict";
+
+/* ============================ STORAGE ============================ */
+const Store={
+  get(k,d){ try{const v=localStorage.getItem('f4l:'+k); return v==null?d:JSON.parse(v);}catch(e){return d;} },
+  set(k,v){ try{localStorage.setItem('f4l:'+k,JSON.stringify(v));}catch(e){} }
+};
+const esc=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+/* ============================ NAV ============================ */
+const ICONS={
+  home:'<path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/>',
+  learn:'<path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H10a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H5.5A1.5 1.5 0 0 1 4 15.5z"/><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H14a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h4.5a1.5 1.5 0 0 0 1.5-1.5z"/>',
+  kitchen:'<path d="M7 3v7a2 2 0 0 0 4 0V3"/><path d="M9 10v11"/><path d="M17 3c-1.5 1.5-2 3.5-2 5.5S15.5 12 17 12v9"/>',
+  daily:'<rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17"/>',
+  ask:'<path d="M20.5 12c0 4.1-3.8 7.4-8.5 7.4a9.7 9.7 0 0 1-2.6-.35L4.5 20.5l1.3-3.6A7 7 0 0 1 3.5 12c0-4.1 3.8-7.4 8.5-7.4s8.5 3.3 8.5 7.4z"/>'
+};
+const TABS=[
+  {id:'home',    label:'Home'},
+  {id:'learn',   label:'Learn'},
+  {id:'kitchen', label:'Food'},
+  {id:'daily',   label:'Daily'},
+  {id:'ask',     label:'Ask'}
+];
+/* which tab lights up for sub-screens */
+const PARENT={article:'learn', recipe:'kitchen'};
+
+/* ============================ CONTENT ============================ */
+
+const MYTHS=[
+ {claim:"Carbs make you gain weight.",
+  fix:"No single food makes you gain weight on its own. Carbs are your body's main fuel and your brain runs almost entirely on them — cutting them is a common reason people feel foggy and irritable at school."},
+ {claim:"Eating after 8pm makes you gain weight.",
+  fix:"Your body has no clock that turns food into fat at a certain hour. If you are hungry at night, that usually means the day was too light."},
+ {claim:"Detox teas clean out your system.",
+  fix:"Your liver and kidneys already do that, all day, for free. Most detox teas are laxatives — they move water through your gut and nothing else."},
+ {claim:"You have to earn your food with exercise.",
+  fix:"Food is not a debt and movement is not a punishment. This way of thinking is one of the earliest signs of disordered eating, partly because it sounds so responsible."},
+ {claim:"Fat makes you fat.",
+  fix:"Fat builds the wall around every cell you have and is a raw material for the hormones that run your cycle. Eating very little of it as a teenager can stop periods completely."},
+ {claim:"Skipping breakfast is an easy way to cut back.",
+  fix:"It mostly moves hunger rather than removing it, and it makes concentrating through a school morning harder. Most people who skip end up eating more later anyway."},
+ {claim:"Eating disorders only affect very thin people.",
+  fix:"They affect people of every body size, and most people who have one are not underweight. You cannot tell by looking at someone."},
+ {claim:"Gaining weight before your period means you got fat.",
+  fix:"Holding water in the second half of your cycle is normal, hormonal and temporary. It leaves on its own."},
+ {claim:"Clean eating is always healthy.",
+  fix:"Wanting to eat well is fine. Strict rules about which foods are pure or dirty are something else, and when those rules start shrinking your life, that pattern has a name — orthorexia — and it is treatable."}
+];
+
+const ARTICLES=[
+ {id:'teens', title:"Your body needs more in your teens, not less", read:"3 min",
+  blurb:"The diet advice you see was written for adults who have finished growing.",
+  short:[
+    "Your teens are the biggest growth period since you were a baby.",
+    "Almost all diet advice online is aimed at adults in their thirties and forties.",
+    "Tired all the time? Ask a doctor for a blood test, not a diet change."
+  ],
+  body:[
+   {p:"Between about 11 and 18 your body builds most of the bone you will ever have, gains most of your adult height, and rewires large parts of your brain. That work is expensive. You often need more food in these years than at any later point in your life."},
+   {h:"The advice was not written for you"},
+   {p:"Nearly all popular diet content is aimed at adults whose bodies have finished building. Using it on a body that is still growing is not a milder version of the same thing — it is a different situation with different consequences."},
+   {p:"Eating too little in these years can delay puberty, stop periods, and lower the bone strength you carry for the rest of your life. Around 90% of your adult bone is laid down by about age 18, and it is very hard to make up later."},
+   {q:"Your body is not misbehaving by needing more. It is doing the biggest job it will ever do."},
+   {h:"Iron, once your periods start"},
+   {p:"Iron deficiency is one of the most common nutrition problems in teenage girls worldwide. It looks like exhaustion, being out of breath on stairs, cold hands and poor concentration — all easy to blame on stress or a late night."},
+   {p:"Iron from plants absorbs much better alongside vitamin C. Lentils with lemon, hummus with tomato, spinach with a squeeze of lemon. Ordinary combinations that happen to work."},
+   {p:"If you are tired in a way sleep does not fix, that is worth a blood test rather than a diet change. Ask about ferritin, not just haemoglobin — ferritin drops first, so it catches the problem earlier."}
+  ]},
+
+ {id:'restrict', title:"What eating too little does to your brain", read:"3 min",
+  blurb:"The most famous study on this was not about eating disorders at all.",
+  short:[
+    "In 1944, 36 healthy men ate about half their usual food for six months.",
+    "They became obsessed with food, irritable and unable to concentrate.",
+    "The restriction caused it. It was not a personality problem."
+  ],
+  body:[
+   {p:"In 1944, researchers in Minnesota recruited 36 healthy young men to be underfed for six months, so scientists could learn how to safely feed people again after the war. They ate roughly half of what they had been eating — not extreme by the standards of modern dieting."},
+   {h:"What happened to their minds"},
+   {p:"The physical results were expected. The psychological ones were not, and they are why the study is still quoted constantly."},
+   {p:"The men became obsessed with food. They read cookbooks for hours and collected recipes they had no way to cook. They talked about meals compulsively and some began hoarding food. Concentration collapsed. They became irritable and withdrawn. Some ate far past comfortable once food came back."},
+   {q:"These were healthy, screened young men. The behaviour came from the restriction, not from them."},
+   {h:"Why it matters now"},
+   {p:"Almost everything on that list gets described today as a personal failing — no willpower, obsessed with food, out of control around a packet of biscuits. This study showed the cause runs the other way round. Eating too little produces the obsession."},
+   {p:"So if you have ever cut back and then found you could not stop thinking about food, that is not weakness. It is the expected result."}
+  ]},
+
+ {id:'signs', title:"How to tell if something is actually wrong", read:"3 min",
+  blurb:"For you, or for a friend you are worried about.",
+  short:[
+    "It usually starts as rules that each sound sensible on their own.",
+    "Weight is not on the warning list — someone can look completely fine.",
+    "You do not need to be sure, or in crisis, to talk to someone."
+  ],
+  body:[
+   {p:"Disordered eating rarely arrives as a dramatic moment. It arrives as a set of rules that seem reasonable one at a time, and only look strange when you list them together."},
+   {h:"Worth taking seriously"},
+   {list:[
+     "Rules that keep multiplying — first one food, then another, then a time of day",
+     "Feeling guilty or anxious rather than just full after a normal meal",
+     "Avoiding meals with other people, or eating differently alone",
+     "Thinking about food or your body so much that it crowds out school and friends",
+     "Exercising to cancel out something you ate",
+     "Periods becoming irregular or stopping",
+     "Feeling cold all the time, dizzy standing up, or tired for no reason"
+   ]},
+   {p:"Weight is left off that list on purpose. Someone's weight can look completely ordinary while all of this is happening."},
+   {h:"If it is your friend"},
+   {p:"The instinct is to say something about their body or their plate. Both tend to backfire — the first confirms that bodies are being watched, the second turns you into someone to hide from."},
+   {p:"What works better is talking about them as a person. That you have not seen them at lunch. That they seem tired. That you miss them. Then say you are not going anywhere, and mean it."},
+   {q:"You are not trying to fix them in one conversation. You are trying to be someone they do not have to hide from."},
+   {h:"If it is you"},
+   {p:"\"I think my thinking about food has got loud\" is a complete and sufficient thing to say to a doctor, a school counsellor or a parent. Early is easier than late. Tap Talk to someone at the top of any screen."}
+  ]},
+
+ {id:'feeds', title:"Why your feed makes you feel worse", read:"2 min",
+  blurb:"Apps show you more of whatever keeps you looking longest.",
+  short:[
+    "Your feed learns what holds your attention, not what is good for you.",
+    "Things that make you feel slightly bad hold attention very well.",
+    "Changing what you follow works better than trying to scroll less."
+  ],
+  body:[
+   {p:"A recommendation system does not know what a body is. It knows a video held your attention for eleven seconds instead of three, and it shows you more like it."},
+   {p:"Content that makes you feel slightly bad about yourself is unusually good at holding attention. You look longer, you compare, you check. The app reads that as interest and sends more. Nobody had to decide to do this to you."},
+   {h:"The comparison is not fair"},
+   {p:"You are comparing your ordinary self at an ordinary moment against one chosen frame, in chosen light, at a chosen angle, often edited afterwards. Even without editing, the pose and lighting do most of the work."},
+   {q:"You are comparing the inside of your life to the outside of everyone else's."},
+   {h:"What actually helps"},
+   {list:[
+     "Unfollow anyone whose posts reliably make you check your body afterwards",
+     "Use 'not interested' instead of scrolling past — scrolling past still counts as watching",
+     "Follow accounts about things you actually do, so the app learns something else",
+     "Notice your physical tell. Most people have one: a jaw clench, holding your breath"
+   ]},
+   {p:"None of this is about willpower. It is about changing what the app has to work with."}
+  ]}
+];
+
+const RECIPES=[
+ {id:'labneh', title:"Za'atar labneh toast", blurb:"Four minutes, and it holds you until lunch.", time:"5 min", tag:"Breakfast",
+  ing:["2 slices of good bread","4 tbsp labneh","1 tbsp za'atar","Olive oil","Cucumber, sliced","Tomato, sliced","Salt"],
+  steps:["Toast the bread until it is properly crisp. Soggy bread makes this sad.",
+         "Spread the labneh thickly. Do not be shy — it is what holds the whole thing together.",
+         "Scatter the za'atar over and pour a spoon of olive oil on top.",
+         "Lay on the cucumber and tomato, and salt them directly.",
+         "Eat standing up, on the way out the door."],
+  why:"Labneh brings protein and fat, the bread brings carbs, the oil helps you absorb the vitamins in the vegetables. It stays with you because it has all three."},
+
+ {id:'oats', title:"Overnight oats you make half-asleep", blurb:"Made the night before, eaten cold from the fridge.", time:"3 min + overnight", tag:"Breakfast",
+  ing:["½ cup rolled oats","½ cup milk or yoghurt","1 tbsp tahini or peanut butter","1 tsp honey","Pinch of salt","Fruit — banana, date, berries, whatever exists"],
+  steps:["Put the oats, milk, tahini, honey and salt in a jar.",
+         "Stir it properly. Tahini sinks and sulks at the bottom otherwise.",
+         "Lid on, fridge, overnight.",
+         "In the morning add fruit and eat it straight from the jar."],
+  why:"The oats soften without cooking. The salt is not optional — it is what stops this tasting like wet cardboard."},
+
+ {id:'mujadara', title:"Mujadara, the way it actually gets made", blurb:"Costs almost nothing, feeds four, better the next day.", time:"45 min", tag:"Dinner",
+  ing:["1 cup brown lentils","1 cup rice","3 onions, sliced thin","Olive oil","1 tsp cumin","Salt and black pepper","Yoghurt and lemon, to serve"],
+  steps:["Simmer the lentils about 20 minutes until tender but not collapsing. Drain, keep the water.",
+         "Fry the onions slowly in plenty of oil until deep brown. This takes 20 minutes and it is the entire flavour of the dish.",
+         "Set aside half the onions. Add the rice, lentils, cumin and salt to the pan.",
+         "Pour in 2 cups of the lentil water, boil, then cover and cook on the lowest heat for 15 minutes.",
+         "Rest 10 minutes off the heat, pile the onions on top, serve with yoghurt and a hard squeeze of lemon."],
+  why:"Lentils and rice together give you a complete set of amino acids, which is why this pairing shows up all over the world. The lemon helps you absorb the iron."},
+
+ {id:'batch', title:"One pot of chickpeas, four days of lunches", blurb:"Cook once on Sunday, then it is just assembly.", time:"30 min", tag:"Meal prep",
+  ing:["2 tins of chickpeas, drained","Olive oil","2 tsp cumin","1 tsp paprika","Salt","Lemons","Parsley","Whatever grain you have"],
+  steps:["Heat the oven to 200°C. Dry the chickpeas on a towel — wet ones steam instead of crisping.",
+         "Toss with oil, cumin, paprika and salt. Roast 25 minutes, shaking the tray once.",
+         "Cook a big pot of your grain at the same time.",
+         "Store them in separate containers. Separate is the whole trick — mixed together they go soggy by Tuesday.",
+         "Each morning: grain, chickpeas, whatever vegetable is around, a lot of lemon and parsley, olive oil."],
+  why:"Four different lunches from one session, and the flavour comes from acid and herbs rather than anything you have to buy specially."},
+
+ {id:'smoothie', title:"The smoothie that is actually a meal", blurb:"For mornings when you cannot face chewing.", time:"3 min", tag:"Breakfast",
+  ing:["1 banana, ideally frozen","1 cup milk","2 tbsp peanut butter or tahini","2 tbsp oats","1 date or 1 tsp honey","Pinch of salt"],
+  steps:["Everything in the blender.","Blend until there is no oat texture left — about a minute longer than you think.","Drink it from the jug if you are running late. Nobody is watching."],
+  why:"Most smoothies are fruit and water, which is why you are hungry forty minutes later. The oats, nut butter and milk are what turn this into breakfast."},
+
+ {id:'fattoush', title:"Fattoush without measuring anything", blurb:"The salad that improves whatever else is on the table.", time:"15 min", tag:"Side",
+  ing:["Stale flatbread","Cucumber, tomato, radish, spring onion","A big handful of parsley and mint","Sumac","Lemon","Olive oil","Salt","Pomegranate molasses, if you have it"],
+  steps:["Tear the bread and toast or fry it until it snaps.",
+         "Chop everything roughly. Fattoush is not a precise salad.",
+         "Dress with lemon, olive oil, salt, a lot of sumac, and pomegranate molasses if it is in the cupboard.",
+         "Add the bread at the very last second, at the table. Bread in early is bread ruined."],
+  why:"Sumac and lemon are both sharp sources of vitamin C, which increases how much iron you absorb from everything else in the meal."}
+];
+
+const HELPLINES=[
+ {name:"Embrace Lifeline", num:"1564", det:"Lebanon's national emotional support and suicide prevention line. Free, confidential, and you do not have to be in crisis to call."},
+ {name:"National Alliance for Eating Disorders", num:"1-866-662-1235", det:"A helpline staffed by licensed clinicians. International, English-speaking."}
+];
+
+const QUOTES=[
+ "You do not have to earn the food you eat.",
+ "Rest is not something you qualify for by being productive first.",
+ "Your body is the thing you experience life with. It is not a project.",
+ "Hunger is information, not a test of character.",
+ "Comparing your body to a photograph is comparing a Tuesday to an advert.",
+ "You are allowed to eat lunch."
+];
+
+const QUIZ=[
+ {q:"What does your brain mainly run on?", a:["Protein","Glucose from carbs","Fat","Fibre"], c:1,
+  e:"Your brain runs on glucose almost entirely, and uses a big share of your daily energy despite being about 2% of your body weight."},
+ {q:"Roughly how much of your adult bone is built by age 18?", a:["About 30%","About 50%","About 90%","All of it"], c:2,
+  e:"Around 90%. It is very hard to add later, which is why eating enough during your teens matters so much."},
+ {q:"Iron from plants absorbs much better alongside…", a:["Tea","Vitamin C","Calcium","Nothing changes it"], c:1,
+  e:"Vitamin C substantially increases it. Lemon on lentils is doing real work. Tea and calcium actually reduce it."},
+ {q:"What are most 'detox' teas?", a:["Antioxidants","Laxatives","Extra fibre","Protein"], c:1,
+  e:"Mostly laxatives. They move water through your gut. Your liver and kidneys do the real work, continuously and for free."},
+ {q:"Which of these is a sign of disordered eating?", a:["Enjoying cooking","Feeling guilty after a normal meal","Eating later at weekends","Disliking a food"], c:1,
+  e:"Guilt after ordinary eating is one of the clearest early signals — more so than anything about weight."},
+ {q:"Why can eating very little fat stop periods?", a:["Fat is stored in the ovaries","Fat is a raw material for hormones","It reduces blood volume","It does not"], c:1,
+  e:"Sex hormones are built from fat and cholesterol. Too little, or too little food overall, can shut the cycle down."},
+ {q:"In the 1944 Minnesota study, the underfed men…", a:["Lost interest in food","Became obsessed with food","Were unaffected","Slept better"], c:1,
+  e:"They became obsessed — reading cookbooks, hoarding recipes, ritualising meals. They were healthy beforehand."},
+ {q:"What does ferritin measure?", a:["Blood sugar","Stored iron","Bone density","Hydration"], c:1,
+  e:"Stored iron. It drops before haemoglobin does, so it catches a problem earlier. Worth asking for by name."},
+ {q:"Weight gained the week before a period is usually…", a:["Fat","Muscle","Water","Bone"], c:2,
+  e:"Water. Hormonal, normal, temporary. It leaves on its own."},
+ {q:"Which pair gives a complete set of amino acids?", a:["Rice and lentils","Rice and potato","Bread and pasta","Lettuce and cucumber"], c:0,
+  e:"Grains and legumes fill each other's gaps, which is why rice-and-lentil dishes appear independently across the world."},
+ {q:"Eating disorders happen…", a:["Only in underweight people","Only in girls","In people of every body size","Only after 18"], c:2,
+  e:"Across every body size, gender and age. Most people who have one are not underweight."},
+ {q:"What is orthorexia?", a:["Fear of eating in public","Fixation on eating only 'pure' foods","Losing appetite when ill","An allergy to grains"], c:1,
+  e:"Rigid rules about food purity that start to shrink someone's life. It is treatable, and noticing it is the first step."}
+];
+
+/* short words only — a 15-wide grid is unusable on a phone */
+const CW_WORDS=[
+ {w:"IRON",   c:"Mineral you lose with your period"},
+ {w:"LENTIL", c:"Half of mujadara"},
+ {w:"TAHINI", c:"Sesame paste that sinks in the jar"},
+ {w:"ENERGY", c:"What food actually gives you"},
+ {w:"SUMAC",  c:"Tart red spice on fattoush"},
+ {w:"FIBRE",  c:"Found in oats and beans"},
+ {w:"SLEEP",  c:"The recovery no supplement replaces"},
+ {w:"OATS",   c:"Soaked overnight in a jar"},
+ {w:"REST",   c:"You do not have to earn it"},
+ {w:"ZINC",   c:"Mineral for healing"},
+ {w:"WATER",  c:"What detox teas mostly move"},
+ {w:"MOOD",   c:"Eating too little wrecks it"},
+ {w:"LEMON",  c:"Squeeze it on lentils for the iron"},
+ {w:"BONE",   c:"90% of it is built by 18"},
+ {w:"CALCIUM",c:"Builds the bone you keep for life"},
+ {w:"PROTEIN",c:"Labneh, lentils and eggs are full of it"}
+];
+
+const SEED_VOICES=[
+ {text:"I stopped eating lunch at school for most of year 10 because I thought it was discipline. What it actually was, was me falling asleep in double maths and not remembering anything from the morning. My grades dropped before my weight changed at all.",
+  who:"Anonymous, 16", sample:true},
+ {text:"My friend asked why I never came to the canteen anymore. She didn't say anything about food or my body, she just said she missed me. That's the sentence that made me tell someone.",
+  who:"Anonymous, 17", sample:true},
+ {text:"Nobody warned me that getting better would mean gaining weight, and that this would be the hardest part, not the eating. Hearing that out loud beforehand would have helped more than any meal plan.",
+  who:"Anonymous, 18", sample:true}
+];
+
+/* ============================ DAILY SEED ============================ */
+function todayKey(){ const d=new Date(); return d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate(); }
+function mulberry32(a){
+  return function(){
+    a|=0; a=a+0x6D2B79F5|0;
+    let t=Math.imul(a^a>>>15,1|a);
+    t=t+Math.imul(t^t>>>7,61|t)^t;
+    return ((t^t>>>14)>>>0)/4294967296;
+  };
+}
+function shuffled(arr,rnd){
+  const a=arr.slice();
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(rnd()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+const pick=(arr,salt)=>arr[Math.floor(mulberry32(todayKey()+salt)()*arr.length)];
+
+/* ============================ CROSSWORD ============================ */
+function buildCrossword(seed){
+  let best=null;
+  for(let attempt=0;attempt<50;attempt++){
+    const g=attemptCrossword(seed*31+attempt);
+    if(g.cols>11||g.rows>11) continue;           // must fit a phone
+    const score=g.entries.length*100-(g.rows+g.cols);
+    if(!best||score>best.score) best={score,g};
+    if(g.entries.length>=7) break;
+  }
+  return best?best.g:attemptCrossword(seed);
+}
+
+function attemptCrossword(seed){
+  const rnd=mulberry32(seed);
+  const N=13;
+  const grid=Array.from({length:N},()=>Array(N).fill(null));
+  const placed=[];
+  const words=shuffled(CW_WORDS,rnd).slice(0,8);
+
+  function fits(word,r,c,dir){
+    const len=word.length;
+    if(dir==='A'){ if(c<0||c+len>N||r<0||r>=N) return false; }
+    else          { if(r<0||r+len>N||c<0||c>=N) return false; }
+    let touches=0;
+    for(let i=0;i<len;i++){
+      const rr=dir==='A'?r:r+i, cc=dir==='A'?c+i:c;
+      const cur=grid[rr][cc];
+      if(cur && cur!==word[i]) return false;
+      if(cur===word[i]) touches++;
+      if(!cur){
+        if(dir==='A'){
+          if(rr>0 && grid[rr-1][cc]) return false;
+          if(rr<N-1 && grid[rr+1][cc]) return false;
+        } else {
+          if(cc>0 && grid[rr][cc-1]) return false;
+          if(cc<N-1 && grid[rr][cc+1]) return false;
+        }
+      }
+    }
+    if(dir==='A'){
+      if(c>0 && grid[r][c-1]) return false;
+      if(c+len<N && grid[r][c+len]) return false;
+    } else {
+      if(r>0 && grid[r-1][c]) return false;
+      if(r+len<N && grid[r+len][c]) return false;
+    }
+    return touches;
+  }
+  function put(word,r,c,dir,clue){
+    for(let i=0;i<word.length;i++){
+      const rr=dir==='A'?r:r+i, cc=dir==='A'?c+i:c;
+      grid[rr][cc]=word[i];
+    }
+    placed.push({word,r,c,dir,clue});
+  }
+
+  const first=words.shift();
+  put(first.w, Math.floor(N/2), Math.floor((N-first.w.length)/2), 'A', first.c);
+
+  for(const entry of words){
+    let best=null;
+    for(const p of placed){
+      for(let i=0;i<p.word.length;i++){
+        for(let j=0;j<entry.w.length;j++){
+          if(p.word[i]!==entry.w[j]) continue;
+          const dir=p.dir==='A'?'D':'A';
+          const r=p.dir==='A' ? p.r-j : p.r+i;
+          const c=p.dir==='A' ? p.c+i : p.c-j;
+          const t=fits(entry.w,r,c,dir);
+          if(t===false||t<1) continue;
+          const score=t*10-Math.abs(r-N/2)-Math.abs(c-N/2);
+          if(!best||score>best.score) best={score,r,c,dir};
+        }
+      }
+    }
+    if(best) put(entry.w,best.r,best.c,best.dir,entry.c);
+  }
+
+  let minR=N,maxR=0,minC=N,maxC=0;
+  for(let r=0;r<N;r++) for(let c=0;c<N;c++) if(grid[r][c]!==null){
+    minR=Math.min(minR,r); maxR=Math.max(maxR,r);
+    minC=Math.min(minC,c); maxC=Math.max(maxC,c);
+  }
+  const rows=maxR-minR+1, cols=maxC-minC+1;
+  const cells=Array.from({length:rows},(_,r)=>Array.from({length:cols},(_,c)=>grid[minR+r][minC+c]));
+  const entries=placed.map(p=>({...p, r:p.r-minR, c:p.c-minC}));
+  const nums=Array.from({length:rows},()=>Array(cols).fill(0));
+  let n=0;
+  entries.sort((a,b)=> a.r-b.r || a.c-b.c);
+  for(const e of entries){
+    if(!nums[e.r][e.c]) nums[e.r][e.c]=++n;
+    e.num=nums[e.r][e.c];
+  }
+  return {cells,entries,rows,cols,nums};
+}
+
+/* ============================ ROUTER ============================ */
+let route={view:'home',arg:null};
+const toTop=()=>{ const m=document.getElementById('main'); if(m) m.scrollTop=0; };
+
+function go(view,arg){
+  route={view,arg:arg??null};
+  location.hash='#/'+view+(arg?'/'+arg:'');
+  render();
+  toTop();
+}
+addEventListener('hashchange',()=>{
+  const parts=location.hash.replace(/^#\//,'').split('/');
+  const v=parts[0]||'home';
+  if(v!==route.view||(parts[1]||null)!==route.arg){
+    route={view:v,arg:parts[1]||null}; render(); toTop();
+  }
+});
+
+function buildTabs(){
+  const el=document.getElementById('tabs');
+  el.innerHTML='';
+  for(const t of TABS){
+    const b=document.createElement('button');
+    b.innerHTML='<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">'+ICONS[t.id]+'</svg><span>'+t.label+'</span>';
+    b.onclick=()=>go(t.id);
+    el.appendChild(b);
+  }
+  markTabs();
+}
+function markTabs(){
+  const active=PARENT[route.view]||route.view;
+  [...document.getElementById('tabs').children].forEach((btn,i)=>{
+    if(TABS[i].id===active) btn.setAttribute('aria-current','page');
+    else btn.removeAttribute('aria-current');
+  });
+}
+
+/* small helper for list rows */
+const row=(title,sub,onclick)=>
+  `<button class="row" onclick="${onclick}">
+     <span class="txt"><span class="t">${esc(title)}</span>${sub?`<span class="s">${esc(sub)}</span>`:''}</span>
+     <span class="chev" aria-hidden="true">›</span>
+   </button>`;
+
+/* ============================ SCREENS ============================ */
+let heroIndex=0;
+
+function viewHome(){
+  const m=MYTHS[heroIndex%MYTHS.length];
+  const quote=pick(QUOTES,7);
+  const article=pick(ARTICLES,13);
+  const recipe=pick(RECIPES,29);
+  return `
+  <section class="myth-hero">
+    <p class="lbl">Something you have probably been told</p>
+    <p style="margin:0"><span class="claim">${esc(m.claim)}</span></p>
+    <p class="fix">${esc(m.fix)}</p>
+    <button class="btn ghost" onclick="nextMyth()">Show me another</button>
+  </section>
+
+  <section>
+    <div class="quote">
+      <p class="lbl">Today</p>
+      <p>${esc(quote)}</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Start here</h2>
+    <div style="margin-top:12px">
+      ${row(article.title, article.read+' read', `go('article','${article.id}')`)}
+      ${row(recipe.title, recipe.tag+', '+recipe.time, `go('recipe','${recipe.id}')`)}
+      ${row("Today's quiz and crossword", 'New every day', `go('daily')`)}
+    </div>
+  </section>
+
+  <section>
+    <h2>More</h2>
+    <div style="margin-top:12px">
+      ${row('Stories', 'Anonymous, from people who have been through it', `go('voices')`)}
+      ${row('Saved', 'Things you kept', `go('saved')`)}
+    </div>
+  </section>
+
+  <section>
+    <div class="note"><p><strong>This app is information, not medical advice.</strong> It cannot know your health or your history. For anything about your own body, talk to a doctor.</p></div>
+  </section>`;
+}
+function nextMyth(){ heroIndex++; render(); }
+
+function viewLearn(){
+  return `
+  <section>
+    <h1>Learn</h1>
+    <p class="lede">Four short reads, and the things people repeat that are not true.</p>
+  </section>
+  <section>
+    <h2>Reads</h2>
+    <div style="margin-top:12px">
+      ${ARTICLES.map(a=>row(a.title, a.read+' read', `go('article','${a.id}')`)).join('')}
+    </div>
+  </section>
+  <section>
+    <h2>Not true</h2>
+    <p class="lede">Tap one to see why.</p>
+    <div style="margin-top:12px">
+      ${MYTHS.map((m,i)=>`
+        <details class="acc">
+          <summary>${esc(m.claim)}<span class="plus" aria-hidden="true">+</span></summary>
+          <p class="ans">${esc(m.fix)}</p>
+        </details>`).join('')}
+    </div>
+  </section>`;
+}
+
+function viewArticle(id){
+  const a=ARTICLES.find(x=>x.id===id);
+  if(!a) return `<section><h1>Not found</h1><p class="lede">That link does not point at anything.</p><p><button class="btn" onclick="go('learn')">Back to Learn</button></p></section>`;
+  const saved=Store.get('saved',[]).includes('article:'+a.id);
+  return `
+  <button class="back" onclick="go('learn')">‹ Learn</button>
+  <article>
+    <h1>${esc(a.title)}</h1>
+    <p class="meta">${esc(a.read)} read</p>
+    <div class="short">
+      <p>In short</p>
+      <ul>${a.short.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>
+    </div>
+    <div class="body">
+      ${a.body.map(b=>{
+        if(b.h) return `<h3>${esc(b.h)}</h3>`;
+        if(b.q) return `<p class="pull">${esc(b.q)}</p>`;
+        if(b.list) return `<ul>${b.list.map(li=>`<li>${esc(li)}</li>`).join('')}</ul>`;
+        return `<p>${esc(b.p)}</p>`;
+      }).join('')}
+    </div>
+    <p style="margin:24px 0 0">
+      <button class="btn ${saved?'':'ghost'}" onclick="toggleSave('article:${a.id}')">${saved?'Saved':'Save this'}</button>
+    </p>
+  </article>`;
+}
+
+function viewKitchen(){
+  return `
+  <section>
+    <h1>Food</h1>
+    <p class="lede">Quick, cheap and actually filling. No portion sizes — if you are still hungry, the answer is more of it.</p>
+  </section>
+  <section>
+    <div>${RECIPES.map(r=>row(r.title, r.tag+', '+r.time, `go('recipe','${r.id}')`)).join('')}</div>
+  </section>`;
+}
+
+function viewRecipe(id){
+  const r=RECIPES.find(x=>x.id===id);
+  if(!r) return `<section><h1>Not found</h1><p><button class="btn" onclick="go('kitchen')">Back to Food</button></p></section>`;
+  const saved=Store.get('saved',[]).includes('recipe:'+r.id);
+  return `
+  <button class="back" onclick="go('kitchen')">‹ Food</button>
+  <article>
+    <h1>${esc(r.title)}</h1>
+    <p class="meta">${esc(r.tag)}, ${esc(r.time)}</p>
+    <p style="margin-top:14px">${esc(r.blurb)}</p>
+    <h2 style="margin-top:24px">What you need</h2>
+    <ul class="ing" style="margin-top:10px">${r.ing.map(i=>`<li>${esc(i)}</li>`).join('')}</ul>
+    <h2 style="margin-top:26px">How</h2>
+    <ol class="steps" style="margin-top:14px">${r.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol>
+    <div class="short" style="margin-top:22px">
+      <p>Why this works</p>
+      <ul><li>${esc(r.why)}</li></ul>
+    </div>
+    <p style="margin:22px 0 0">
+      <button class="btn ${saved?'':'ghost'}" onclick="toggleSave('recipe:${r.id}')">${saved?'Saved':'Save this'}</button>
+    </p>
+  </article>`;
+}
+
+/* ---------- daily ---------- */
+let quizState=null;
+function viewDaily(){
+  const qs=shuffled(QUIZ,mulberry32(todayKey()+101)).slice(0,5);
+  if(!quizState||quizState.day!==todayKey()){
+    const prev=Store.get('quiz',{});
+    quizState={day:todayKey(), answers:(prev.day===todayKey()?prev.answers:{})||{}};
+  }
+  quizState.qs=qs;
+  const done=Object.keys(quizState.answers).length;
+  const score=Object.entries(quizState.answers).filter(([i,v])=>v===qs[i].c).length;
+
+  return `
+  <section>
+    <h1>Daily</h1>
+    <p class="lede">A new quiz and crossword every day. Everyone opening the app today gets the same ones.</p>
+  </section>
+
+  <section>
+    <h2>Five questions</h2>
+    <p class="lede">${done===5?`You got ${score} out of 5.`:`${done} of 5 answered.`}</p>
+    <div style="margin-top:14px">
+      ${qs.map((q,i)=>{
+        const picked=quizState.answers[i];
+        const answered=picked!==undefined;
+        return `<div class="q">
+          <div class="prompt">${i+1}. ${esc(q.q)}</div>
+          ${q.a.map((opt,j)=>{
+            let cls='opt';
+            if(answered && j===q.c) cls+=' right';
+            else if(answered && j===picked) cls+=' wrong';
+            return `<button class="${cls}" ${answered?'disabled':''} onclick="answer(${i},${j})">${esc(opt)}</button>`;
+          }).join('')}
+          ${answered?`<p class="explain">${esc(q.e)}</p>`:''}
+        </div>`;
+      }).join('')}
+    </div>
+  </section>
+
+  <section>
+    <h2>Crossword</h2>
+    <p class="lede">Tap a square. The clue for it shows above.</p>
+    <div id="cw-host" style="margin-top:14px"></div>
+  </section>`;
+}
+function answer(i,j){
+  quizState.answers[i]=j;
+  Store.set('quiz',{day:todayKey(),answers:quizState.answers});
+  render();
+}
+
+let cwData=null, cwDir='A';
+function mountCrossword(){
+  const host=document.getElementById('cw-host');
+  if(!host) return;
+  cwData=buildCrossword(todayKey()+55);
+  const {cells,entries,rows,cols,nums}=cwData;
+  const saved=Store.get('cw',{});
+  const letters=(saved.day===todayKey()?saved.letters:{})||{};
+
+  const bar=document.createElement('div');
+  bar.className='cluebar';
+  bar.innerHTML='<span class="n"></span><span class="c">Tap a square to see its clue.</span>';
+
+  const grid=document.createElement('div');
+  grid.className='cw';
+  grid.style.gridTemplateColumns=`repeat(${cols},var(--cell))`;
+
+  const avail=host.clientWidth||340;
+  const cell=Math.max(20,Math.min(42,Math.floor((avail-6-(cols-1)*2)/cols)));
+  grid.style.setProperty('--cell',cell+'px');
+
+  function entriesAt(r,c){
+    return cwData.entries.filter(e=>{
+      if(e.dir==='A') return e.r===r && c>=e.c && c<e.c+e.word.length;
+      return e.c===c && r>=e.r && r<e.r+e.word.length;
+    });
+  }
+  function highlight(r,c){
+    grid.querySelectorAll('.cell.here').forEach(x=>x.classList.remove('here'));
+    const here=entriesAt(r,c);
+    let e=here.find(x=>x.dir===cwDir)||here[0];
+    if(!e) return;
+    cwDir=e.dir;
+    for(let i=0;i<e.word.length;i++){
+      const rr=e.dir==='A'?e.r:e.r+i, cc=e.dir==='A'?e.c+i:e.c;
+      const inp=grid.querySelector(`input[data-r="${rr}"][data-c="${cc}"]`);
+      if(inp) inp.parentElement.classList.add('here');
+    }
+    bar.querySelector('.n').textContent=e.num+(e.dir==='A'?' across':' down');
+    bar.querySelector('.c').textContent=e.clue;
+    const other=here.length>1;
+    let btn=bar.querySelector('button');
+    if(other && !btn){
+      btn=document.createElement('button');
+      btn.textContent='Switch';
+      bar.appendChild(btn);
+    }
+    if(btn){
+      btn.style.display=other?'':'none';
+      btn.onclick=()=>{ cwDir=cwDir==='A'?'D':'A'; highlight(r,c); };
+    }
+  }
+
+  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
+    const div=document.createElement('div');
+    div.className='cell'+(cells[r][c]?' open':'');
+    if(cells[r][c]){
+      if(nums[r][c]) div.insertAdjacentHTML('beforeend',`<span class="num">${nums[r][c]}</span>`);
+      const inp=document.createElement('input');
+      inp.maxLength=1; inp.dataset.r=r; inp.dataset.c=c;
+      inp.setAttribute('inputmode','text');
+      inp.setAttribute('autocapitalize','characters');
+      inp.setAttribute('aria-label',`row ${r+1} column ${c+1}`);
+      inp.value=letters[r+','+c]||'';
+      inp.onfocus=()=>highlight(r,c);
+      inp.oninput=e=>{
+        const v=e.target.value.replace(/[^A-Za-z]/g,'').toUpperCase();
+        e.target.value=v;
+        letters[r+','+c]=v;
+        Store.set('cw',{day:todayKey(),letters});
+        if(v){
+          const nx=cwDir==='A'
+            ? grid.querySelector(`input[data-r="${r}"][data-c="${c+1}"]`)
+            : grid.querySelector(`input[data-r="${r+1}"][data-c="${c}"]`);
+          if(nx) nx.focus();
+        }
+        paint(grid);
+      };
+      div.appendChild(inp);
+    }
+    grid.appendChild(div);
+  }
+
+  const across=entries.filter(e=>e.dir==='A').sort((a,b)=>a.num-b.num);
+  const down  =entries.filter(e=>e.dir==='D').sort((a,b)=>a.num-b.num);
+  const list=document.createElement('details');
+  list.className='clues';
+  list.innerHTML=`<summary>All clues</summary>
+    <h4>Across</h4><ol>${across.map(e=>`<li value="${e.num}">${esc(e.clue)}</li>`).join('')}</ol>
+    <h4>Down</h4><ol>${down.map(e=>`<li value="${e.num}">${esc(e.clue)}</li>`).join('')}</ol>`;
+
+  host.innerHTML='';
+  host.appendChild(bar);
+  host.appendChild(grid);
+  host.appendChild(list);
+  paint(grid);
+}
+function paint(grid){
+  if(!cwData) return;
+  for(const e of cwData.entries){
+    let ok=true;
+    for(let i=0;i<e.word.length;i++){
+      const r=e.dir==='A'?e.r:e.r+i, c=e.dir==='A'?e.c+i:e.c;
+      const inp=grid.querySelector(`input[data-r="${r}"][data-c="${c}"]`);
+      if(!inp||inp.value!==e.word[i]){ ok=false; break; }
+    }
+    if(!ok) continue;
+    for(let i=0;i<e.word.length;i++){
+      const r=e.dir==='A'?e.r:e.r+i, c=e.dir==='A'?e.c+i:e.c;
+      const inp=grid.querySelector(`input[data-r="${r}"][data-c="${c}"]`);
+      if(inp) inp.parentElement.classList.add('done');
+    }
+  }
+}
+
+/* ---------- voices ---------- */
+function viewVoices(){
+  const mine=Store.get('voices',[]);
+  const all=[...mine.map((v,i)=>({...v,idx:i})),...SEED_VOICES];
+  return `
+  <button class="back" onclick="go('home')">‹ Home</button>
+  <section>
+    <h1>Stories</h1>
+    <p class="lede">Anonymous, from people who have been through it. Not advice — just company.</p>
+  </section>
+
+  <section>
+    <div>${all.map(v=>`
+      <div class="voice">
+        <p class="said">${esc(v.text)}</p>
+        <p class="who">${esc(v.who||'Anonymous')}${v.sample?' · example':''}</p>
+        ${!v.sample?`<p style="margin:10px 0 0"><button class="btn ghost" style="padding:8px 14px;font-size:14px;min-height:40px" onclick="delVoice(${v.idx})">Delete</button></p>`:''}
+      </div>`).join('')}
+    </div>
+  </section>
+
+  <section>
+    <h2>Add yours</h2>
+    <p class="lede">It stays on this phone only. Nothing is uploaded and nobody else can read it.</p>
+    <div style="margin-top:14px">
+      <div class="field">
+        <label for="v-text">What do you want to say?</label>
+        <textarea id="v-text" placeholder="As much or as little as you want."></textarea>
+      </div>
+      <div class="field">
+        <label for="v-who">Sign it how?</label>
+        <input type="text" id="v-who" placeholder="Anonymous, 16" maxlength="40">
+      </div>
+      <button class="btn" onclick="postVoice()">Post</button>
+      <p id="v-msg" style="margin-top:10px;color:var(--ink-70);font-size:15px"></p>
+    </div>
+  </section>`;
+}
+function postVoice(){
+  const t=document.getElementById('v-text').value.trim();
+  const w=document.getElementById('v-who').value.trim()||'Anonymous';
+  if(t.length<15){ document.getElementById('v-msg').textContent='Write a bit more first — at least a sentence.'; return; }
+  const list=Store.get('voices',[]);
+  list.unshift({text:t,who:w});
+  Store.set('voices',list);
+  render();
+}
+function delVoice(i){
+  const list=Store.get('voices',[]);
+  list.splice(i,1); Store.set('voices',list); render();
+}
+
+/* ---------- talk to someone ---------- */
+function viewTalk(){
+  return `
+  <button class="back" onclick="history.length>1?history.back():go('home')">‹ Back</button>
+  <section>
+    <h1>Talk to someone</h1>
+    <p class="lede">You do not have to be in crisis, and you do not have to be sure anything is wrong.</p>
+  </section>
+
+  <section>
+    ${HELPLINES.map(h=>`
+      <div class="line">
+        <div class="nm">${esc(h.name)}</div>
+        <a class="num" href="tel:${esc(h.num.replace(/[^0-9+]/g,''))}">${esc(h.num)}</a>
+        <p class="det">${esc(h.det)}</p>
+      </div>`).join('')}
+    <div class="line">
+      <div class="nm">A doctor, or your school counsellor</div>
+      <p class="det" style="margin-top:6px">Usually the fastest route to everything else, and the one most people skip. A counsellor can arrange things without you having to explain it at home first.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>What to actually say</h2>
+    <p class="lede">Most people get stuck on the first sentence. You can read one of these straight off the screen.</p>
+    <div style="margin-top:12px">
+      ${[
+        "I think my thinking about food has got loud and I want to talk to someone.",
+        "I have been really tired. Can we check my iron?",
+        "I am worried about a friend and I do not know how to bring it up.",
+        "I do not think it is serious, but I would rather ask early than late."
+      ].map(s=>`<div class="card" style="margin-bottom:8px;font-size:16px">${esc(s)}</div>`).join('')}
+    </div>
+    <p class="lede" style="margin-top:12px">None of these commits you to anything. They just open the door.</p>
+  </section>`;
+}
+
+/* ---------- ask ---------- */
+let chatLog=[{role:'bot',text:"Hi. Ask me anything about food, bodies, periods, energy, or something you read online that did not sound right.\n\nTwo things first: I am not a doctor, and I will not give you calorie numbers or weight advice — not to be cagey, but because those are the things most likely to make someone feel worse."}];
+
+const RISKY=[
+  'kill myself','killing myself','suicide','suicidal','end my life','want to die',
+  'dont want to be here','do not want to be here','hurt myself','hurting myself','self harm','selfharm','cut myself',
+  'starve myself','starving myself','stopped eating','havent eaten','have not eaten','not eaten in',
+  'skipping meals','skipped meals','purge','purging','make myself sick','making myself sick',
+  'throw up after','throwing up after','vomit after','laxative','laxatives'
+];
+const CRISIS_REPLY="I am glad you said that, and I do not want to just hand you an article.\n\nPlease talk to someone today. Embrace Lifeline in Lebanon is 1564 — free and confidential. A doctor or school counsellor is also a completely reasonable place to start, and Talk to someone at the top of the screen has both.\n\nYou are not being dramatic and you are not wasting anyone's time. That is what the line is for.";
+
+const FALLBACK=[
+ {k:['carb','carbs','carbohydrate','bread','rice','pasta'],
+  a:"Carbs are your main fuel, and your brain runs almost entirely on them. Cutting them is one of the most common reasons people feel foggy and irritable through a school day.\n\nBread, rice and pasta are not a problem to manage. They are the part of the meal that keeps you going."},
+ {k:['fat','fats','oil','butter','tahini'],
+  a:"Dietary fat builds the wall around every cell you have, carries vitamins A, D, E and K, and is a raw material for the hormones that run your cycle.\n\nEating very little of it as a teenager can stop periods altogether. Olive oil, tahini, nuts, yoghurt and eggs are all doing real work."},
+ {k:['detox','cleanse','flat tummy','skinny tea'],
+  a:"Your liver and kidneys detox your blood continuously, and no tea improves on that. Most detox teas are laxatives — they move water through your gut, which changes the scale and nothing else.\n\nUsed regularly they can mess with your electrolytes and your cycle."},
+ {k:['tired','exhaust','iron','ferritin','anemia','anaemia','fatigue'],
+  a:"Tiredness that sleep does not fix is worth a blood test rather than a diet change. Iron deficiency is very common once periods start.\n\nAsk about ferritin, not just haemoglobin — ferritin drops first, so it catches the problem earlier. That is a fine thing to ask a doctor for directly."},
+ {k:['period','cycle','menstrual','missed','irregular'],
+  a:"Periods stopping or going irregular is worth taking to a doctor rather than waiting out. It can happen when you are eating less than your body is using, including when your weight looks completely unchanged.\n\nIt is one of the clearer signs that something needs attention."},
+ {k:['hate my body','ugly','disgusting','my body','look fat','feel fat'],
+  a:"That is a horrible way to feel, and I am not going to try to argue you out of it with facts about bodies, because that rarely works.\n\nWhat I will say is that how you feel about your body moves around a lot depending on sleep, stress, your cycle and what you have been looking at — which means the feeling is not a reliable measurement of anything.\n\nIf it is loud most days, that is worth telling someone."},
+ {k:['diet','lose weight','calories','how many calories','weight','bmi','portion'],
+  a:"I do not give calorie numbers or weight advice, and I would rather say why than dodge.\n\nFor someone your age, targets like that are the single most common starting point for eating problems, and a website is the least qualified thing to set them. Your energy needs as a teenager are genuinely high and genuinely individual.\n\nIf there is a real health reason to change something, that is a conversation with a doctor who can actually see your history."},
+ {k:['friend','worried about','someone i know'],
+  a:"The instinct is usually to say something about their eating or their body. Both tend to backfire — the first makes you someone to hide from, the second confirms bodies are being watched.\n\nWhat works better is talking about them as a person. That you have not seen them at lunch. That they seem tired. That you miss them. Then say you are not going anywhere.\n\nThere is a longer piece on this in Learn."},
+ {k:['breakfast','skip','not hungry morning'],
+  a:"Skipping breakfast usually moves hunger rather than removing it, and it makes concentrating through a school morning harder.\n\nIf mornings genuinely make you feel sick, something drinkable often works better than something you have to chew — there is a smoothie in Food built for exactly that."},
+ {k:['protein','muscle','gym','workout','exercise','burn'],
+  a:"Movement is good for mood, sleep, bones and concentration. It stops being good for you when it turns into something you owe — exercising to cancel out a meal is one of the earliest signs of disordered eating.\n\nA useful test: are you doing it for something you want to be able to do, or to undo something you ate?"}
+];
+
+function localAnswer(q){
+  const s=q.toLowerCase().replace(/['\u2019]/g,'').replace(/\s+/g,' ');
+  let best=null,score=0;
+  for(const f of FALLBACK){
+    const hits=f.k.filter(k=>s.includes(k)).length;
+    if(hits>score){score=hits;best=f;}
+  }
+  if(best) return best.a;
+  return "I do not have a good answer for that one.\n\nLearn has the corrections to the things people repeat most, Food has things that are quick and actually filling, and Talk to someone at the top has real people.\n\nTry rephrasing it — I know about carbs, fat, iron, periods, energy, feeds, and worrying about a friend.";
+}
+
+async function sendChat(text){
+  if(!text.trim()) return;
+  chatLog.push({role:'me',text});
+
+  const s=text.toLowerCase().replace(/['\u2019]/g,'').replace(/\s+/g,' ');
+  if(RISKY.some(r=>s.includes(r))){
+    chatLog.push({role:'bot',text:CRISIS_REPLY});
+    renderChat();
+    return;
+  }
+
+  chatLog.push({role:'bot',text:'…'});
+  renderChat();
+
+  let reply;
+  try{
+    const res=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-6", max_tokens:1000,
+        system:"You answer questions for teenagers on Fuel4Life, a health education app about food, bodies and mental health.\n\nHard rules:\n- Never give calorie targets, weight-loss advice, goal weights, BMI, portion sizes or numeric meal plans. If asked, explain plainly why not and point to a doctor.\n- Never suggest restriction, fasting, 'earning' food through exercise, or cutting out food groups.\n- If the person mentions self-harm, suicide, purging, or not eating, respond warmly, do not lecture, and point them to Embrace Lifeline Lebanon (1564) and a doctor or school counsellor. Never describe methods.\n- You are not a doctor. Say so when it matters, without hedging every sentence.\n\nStyle: warm, direct, no baby talk, no emoji. Short paragraphs, two to four of them. Simple words — this is read by 13 to 18 year olds. British spelling. Never call foods good or bad.",
+        messages:[{role:"user",content:text}]
+      })
+    });
+    const data=await res.json();
+    reply=(data.content||[]).map(b=>b.type==='text'?b.text:'').join('').trim();
+    if(!reply) throw new Error('empty');
+  }catch(e){
+    reply=localAnswer(text);
+  }
+  chatLog[chatLog.length-1]={role:'bot',text:reply};
+  renderChat();
+}
+
+function viewAsk(){
+  return `
+  <section style="margin-bottom:14px">
+    <h1>Ask</h1>
+    <p class="lede">For the questions you would rather not say out loud. Nothing you type is saved.</p>
+  </section>
+  <section style="flex:1;display:flex;flex-direction:column;min-height:0">
+    <div class="chat">
+      <div class="log" id="chat-log"></div>
+      <div class="suggest">
+        <button onclick="sendChat('Do carbs make you gain weight?')">Do carbs make you gain weight?</button>
+        <button onclick="sendChat('Why am I tired all the time?')">Why am I tired all the time?</button>
+        <button onclick="sendChat('I am worried about a friend')">I'm worried about a friend</button>
+      </div>
+      <form class="composer" onsubmit="event.preventDefault();const i=document.getElementById('chat-in');sendChat(i.value);i.value='';">
+        <input id="chat-in" type="text" placeholder="Type your question" autocomplete="off" aria-label="Your question">
+        <button class="btn" type="submit">Send</button>
+      </form>
+    </div>
+    <div class="note" style="margin-top:14px">
+      <p>It will not give you calorie numbers or weight advice, on purpose. It is not a doctor and not a counsellor.</p>
+    </div>
+  </section>`;
+}
+function renderChat(){
+  const log=document.getElementById('chat-log');
+  if(!log) return;
+  log.innerHTML=chatLog.map(m=>`<div class="msg ${m.role==='me'?'me':'bot'}">${esc(m.text)}</div>`).join('');
+  log.scrollTop=log.scrollHeight;
+}
+
+/* ---------- saved ---------- */
+function viewSaved(){
+  const saved=Store.get('saved',[]);
+  const items=saved.map(k=>{
+    const [t,id]=k.split(':');
+    const o=(t==='article'?ARTICLES:RECIPES).find(x=>x.id===id);
+    return o?{t,o}:null;
+  }).filter(Boolean);
+  return `
+  <button class="back" onclick="go('home')">‹ Home</button>
+  <section>
+    <h1>Saved</h1>
+    <p class="lede">Everything here stays on this phone. There is no account and nothing is uploaded.</p>
+  </section>
+  <section>
+    ${items.length
+      ? items.map(({t,o})=>row(o.title, t==='article'?o.read+' read':o.tag+', '+o.time, `go('${t}','${o.id}')`)).join('')
+      : `<div class="note"><p>Nothing saved yet. Open anything in Learn or Food and press Save this.</p></div>`}
+  </section>
+  <section>
+    <div class="note"><p><strong>Medical disclaimer.</strong> Fuel4Life is general health education. It is not a diagnosis or a treatment plan, and it is not a substitute for a doctor. Talk to one before changing how you eat or exercise, especially if you have a health condition or take medication.</p></div>
+    <p style="margin-top:14px"><button class="btn ghost" onclick="clearAll()">Clear everything on this device</button></p>
+  </section>`;
+}
+function toggleSave(key){
+  const s=Store.get('saved',[]);
+  const i=s.indexOf(key);
+  if(i>=0) s.splice(i,1); else s.push(key);
+  Store.set('saved',s); render();
+}
+function clearAll(){
+  if(!confirm('Delete your saved items, stories and puzzle progress on this device?')) return;
+  ['saved','voices','quiz','cw'].forEach(k=>{ Store.set(k,null); try{localStorage.removeItem('f4l:'+k);}catch(e){} });
+  render();
+}
+
+/* ============================ RENDER ============================ */
+function render(){
+  const el=document.getElementById('main');
+  let html;
+  switch(route.view){
+    case 'learn':   html=viewLearn(); break;
+    case 'article': html=viewArticle(route.arg); break;
+    case 'kitchen': html=viewKitchen(); break;
+    case 'recipe':  html=viewRecipe(route.arg); break;
+    case 'daily':   html=viewDaily(); break;
+    case 'voices':  html=viewVoices(); break;
+    case 'talk':    html=viewTalk(); break;
+    case 'ask':     html=viewAsk(); break;
+    case 'saved':   html=viewSaved(); break;
+    default:        html=viewHome();
+  }
+  el.className='screen'+(route.view==='ask'?' ask':'');
+  el.innerHTML=html;
+  markTabs();
+  if(route.view==='daily') mountCrossword();
+  if(route.view==='ask') renderChat();
+}
+
+buildTabs();
+(function boot(){
+  const parts=location.hash.replace(/^#\//,'').split('/');
+  if(parts[0]) route={view:parts[0],arg:parts[1]||null};
+  render();
+})();
+</script>
+</body>
+</html>
