@@ -1,0 +1,37 @@
+{
+  "background_color": "#ffffff",
+  "description": "Straight answers about food, bodies and energy, for teenagers. Daily meals, short reads, a puzzle, and somewhere to ask.",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Fuel4Life",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "Fuel4Life",
+  "start_url": "/",
+  "theme_color": "#F5F3EC",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'&gt;&lt;rect width='64' height='64' rx='14' fill='%2314342B'/&gt;&lt;ellipse cx='14' cy='29' rx='8.5' ry='9.5' fill='%23A6E5C3'/&gt;&lt;ellipse cx='50' cy='29' rx='8.5' ry='9.5' fill='%23A6E5C3'/&gt;&lt;ellipse cx='32' cy='31' rx='18' ry='19.5' fill='%23A6E5C3'/&gt;&lt;ellipse cx='32' cy='39.5' rx='12.5' ry='11.5' fill='%23ECF4D9'/&gt;&lt;ellipse cx='25.6' cy='27.5' rx='2.7' ry='3.3' fill='%2314342B'/&gt;&lt;ellipse cx='38.4' cy='27.5' rx='2.7' ry='3.3' fill='%2314342B'/&gt;&lt;ellipse cx='28.6' cy='37' rx='1.5' ry='1.15' fill='%2314342B'/&gt;&lt;ellipse cx='35.4' cy='37' rx='1.5' ry='1.15' fill='%2314342B'/&gt;&lt;path d='M26.5 41.5q5.5 4.6 11 0' stroke='%2314342B' stroke-width='2.1' fill='none' stroke-linecap='round'/&gt;&lt;/svg&gt;",
+      "isSquare": false,
+      "isPng": false,
+      "isWebp": false,
+      "isJpg": false,
+      "width": 0,
+      "is512x512": false,
+      "is256x256": false,
+      "is192x192": false
+    },
+    {
+      "src": "data:image/svg+xml,&lt;svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'&gt;&lt;rect width='64' height='64' rx='14' fill='%2314342B'/&gt;&lt;ellipse cx='14' cy='29' rx='8.5' ry='9.5' fill='%23A6E5C3'/&gt;&lt;ellipse cx='50' cy='29' rx='8.5' ry='9.5' fill='%23A6E5C3'/&gt;&lt;ellipse cx='14' cy='29' rx='4.2' ry='4.8' fill='%2314342B' opacity='.45'/&gt;&lt;ellipse cx='50' cy='29' rx='4.2' ry='4.8' fill='%2314342B' opacity='.45'/&gt;&lt;ellipse cx='32' cy='31' rx='18' ry='19.5' fill='%23A6E5C3'/&gt;&lt;ellipse cx='32' cy='39.5' rx='12.5' ry='11.5' fill='%23ECF4D9'/&gt;&lt;ellipse cx='25.6' cy='27.5' rx='2.7' ry='3.3' fill='%2314342B'/&gt;&lt;ellipse cx='38.4' cy='27.5' rx='2.7' ry='3.3' fill='%2314342B'/&gt;&lt;ellipse cx='28.6' cy='37' rx='1.5' ry='1.15' fill='%2314342B'/&gt;&lt;ellipse cx='35.4' cy='37' rx='1.5' ry='1.15' fill='%2314342B'/&gt;&lt;path d='M26.5 41.5q5.5 4.6 11 0' stroke='%2314342B' stroke-width='2.1' fill='none' stroke-linecap='round'/&gt;&lt;/svg&gt;",
+      "isSquare": false,
+      "isPng": false,
+      "isWebp": false,
+      "isJpg": false,
+      "width": 0,
+      "is512x512": false,
+      "is256x256": false,
+      "is192x192": false
+    }
+  ],
+  "id": "F4L"
+}
