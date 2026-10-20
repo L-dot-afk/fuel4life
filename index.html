@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./pwabuilder-sw.js');
-  }
-</script>
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-
-<!-- Update your head links to look like this: -->
-<link rel="manifest" href="./site.webmanifest" />
-<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
-<link rel="icon" type="image/png" sizes="192x192" href="./pwa-192x192.png" />
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Fuel4Life</title>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./pwabuilder-sw.js', { scope: './' });
+  }
+</script>
+
+<link rel="manifest" href="./site.webmanifest" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="48x48" href="./favicon-48x48.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="./pwa-192x192.png" />
+
 <meta name="description" content="Straight answers about food, bodies and energy, for teenagers. Daily meals, short reads, a puzzle, and somewhere to ask.">
 <meta name="theme-color" content="#F5F3EC" id="tc">
 <meta name="mobile-web-app-capable" content="yes">
